@@ -39,10 +39,31 @@ public class BufferedReading {
         }
         return stringBuilder.toString();
     }
-
+    
+    public static byte[] readFromFile() {
+        String path = "A.txt";
+        byte[] bytes = new byte[20];
+        try {
+            String text = read(path);
+            if (text.length() < 20) {
+                return text.getBytes();
+            }
+            RandomAccessFile file = new RandomAccessFile(path, "r");
+            file.seek(text.length() - 20);
+            file.read(bytes);
+            file.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File was not found");
+        } catch (IOException e) {
+            System.out.println("IOException during reading of file");
+        }
+        return bytes;
+    }
+    
     public static void main(String[] args) throws IOException {
         String path = BufferedReading.class.getPackage().getName();
         System.out.print(read("src/main/java/" + path + "/BufferedReading.java"));
+        System.out.println("The last 20 symbols in A.txt file are [" + new String(readFromFile(), "UTF-8") + "]");
     }
 
 //    Задача:
