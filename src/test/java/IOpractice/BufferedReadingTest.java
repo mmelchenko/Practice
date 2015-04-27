@@ -1,6 +1,9 @@
 package IOpractice;
 
+
+import IOpractice.BufferedReading;
 import org.junit.*;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -31,7 +34,7 @@ public class BufferedReadingTest {
 
     @Test
     public void testRead() throws Exception {
-        assertEquals(BufferedReading.read(tst.getAbsoluteFile().getName()), check);
+        Assert.assertEquals(BufferedReading.read(tst.getAbsoluteFile().getName()), check);
     }
 
     @Test(expected = IOException.class)
