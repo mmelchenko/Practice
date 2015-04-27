@@ -1,7 +1,6 @@
 package IOpractice;
 
 import org.junit.*;
-import org.junit.Test;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,6 +11,7 @@ import static org.junit.Assert.*;
 public class BufferedReadingTest {
     File tst;
     String check = "check me in file";
+
 
     @Before
     public void init() {
@@ -31,11 +31,18 @@ public class BufferedReadingTest {
 
     @Test
     public void testRead() throws Exception {
+        assertEquals(BufferedReading.read(tst.getAbsoluteFile().getName()), check);
+    }
+
+    @Test(expected = IOException.class)
+    public void testReadNegative() throws Exception {
+        BufferedReading.read(null);
     }
 
     @Test
     public void testReadFromFile() throws Exception {
-        assertEquals(new String(BufferedReading.readFromFile(4, new File("A.txt")), "UTF-8"), "sed.");
+        int len = 4;
+        assertEquals(new String(BufferedReading.readFromFile(len, new File("A.txt")), "UTF-8"), check.substring(check.length()-len));
     }
 
 
