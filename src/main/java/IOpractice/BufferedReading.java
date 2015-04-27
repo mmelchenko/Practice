@@ -39,17 +39,15 @@ public class BufferedReading {
         }
         return stringBuilder.toString();
     }
-    
-    public static byte[] readFromFile() {
-        String path = "A.txt";
-        byte[] bytes = new byte[20];
+
+    public static byte[] readFromFile(int byteCount, File fileToRead) {
+        byte[] bytes = null;
         try {
-            String text = read(path);
-            if (text.length() < 20) {
-                return text.getBytes();
-            }
-            RandomAccessFile file = new RandomAccessFile(path, "r");
-            file.seek(text.length() - 20);
+            bytes = new byte[byteCount];
+            if (fileToRead.length() <= 0)
+                throw new RuntimeException("File must be present and non empty");
+            RandomAccessFile file = new RandomAccessFile(fileToRead, "r");
+            file.seek(fileToRead.length() - byteCount);
             file.read(bytes);
             file.close();
         } catch (FileNotFoundException e) {
@@ -59,11 +57,12 @@ public class BufferedReading {
         }
         return bytes;
     }
-    
+
     public static void main(String[] args) throws IOException {
         String path = BufferedReading.class.getPackage().getName();
         System.out.print(read("src/main/java/" + path + "/BufferedReading.java"));
-        System.out.println("The last 20 symbols in A.txt file are [" + new String(readFromFile(), "UTF-8") + "]");
+        int n = 4;
+        System.out.println("The last " + n + " symbols in A.txt file are [" + new String(readFromFile(n, new File("A.txt")), "UTF-8") + "]");
     }
 
 //    Задача:
