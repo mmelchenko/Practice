@@ -58,13 +58,6 @@ public class BufferedReading {
         return bytes;
     }
 
-    public static void main(String[] args) throws IOException {
-        String path = BufferedReading.class.getPackage().getName();
-        System.out.print(read("src/main/java/" + path + "/BufferedReading.java"));
-        int n = 4;
-        System.out.println("The last " + n + " symbols in A.txt file are [" + new String(readFromFile(n, new File("A.txt")), "UTF-8") + "]");
-    }
-
 //    Задача:
 //    есть символьный файл A.txt - надо прочитать его последние 20 символов
 //    делай при помощи RandomAccessFile
