@@ -1,7 +1,6 @@
 package IOpractice;
 
 
-import IOpractice.BufferedReading;
 import org.junit.*;
 import org.junit.Test;
 
