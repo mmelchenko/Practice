@@ -4,9 +4,18 @@ package collections;
  * Created by odudak on 28.04.15.
  * имплементируй методы и убери абстракт
  */
-abstract public class CustomLinkedList<T> {
+public class CustomLinkedList<T> {
     private T data;
     private CustomLinkedList<T> next;
+    private CustomLinkedList<T> prev;
+
+    public CustomLinkedList<T> getPrev() {
+        return prev;
+    }
+
+    public void setPrev(CustomLinkedList<T> prev) {
+        this.prev = prev;
+    }
 
     public T getData() {
         return data;
@@ -24,7 +33,21 @@ abstract public class CustomLinkedList<T> {
         this.next = next;
     }
 
-    abstract void appendToEnd(T element);
+    void appendToEnd(T element) {
+//        сделать
+    }
 
-    abstract void pushOnTop(T element);
+    void pushOnTop(T element) {
+//        сделать
+    }
+
+    @Override
+    public String toString() {
+        if (this.next != null && prev == null)
+            return "[ " + data + ", " + this.next.toString();
+        else if (this.next != null && prev != null) {
+            return data + ", " + this.next.toString();
+        } else
+            return data + " ]";
+    }
 }
