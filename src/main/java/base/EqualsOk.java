@@ -20,13 +20,20 @@ public class EqualsOk {
 
     @Override
     public boolean equals(Object obj) {
-//        TODO реализовать метод
-        throw new NotImplementedException();
+        if (this == obj) return true;
+        if (!(obj instanceof EqualsOk)) return false;
+
+        EqualsOk equalsOk = (EqualsOk) obj;
+
+        if (i != equalsOk.i) return false;
+        return s.equals(equalsOk.s);
+
     }
 
     @Override
     public int hashCode() {
-//        TODO реализовать метод
-        throw new NotImplementedException();
+        int result = i;
+        result = 31 * result + s.hashCode();
+        return result;
     }
 }
