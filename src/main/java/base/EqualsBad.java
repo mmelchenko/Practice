@@ -16,13 +16,11 @@ public class EqualsBad {
 
     @Override
     public boolean equals(Object obj) {
-//        TODO реализовать метод
-        throw new NotImplementedException();
+        return super.equals(obj);
     }
 
     @Override
     public int hashCode() {
-//        TODO реализовать метод
-        throw new NotImplementedException();
+        return super.hashCode();
     }
 }
