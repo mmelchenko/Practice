@@ -1,6 +1,7 @@
 package base;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.Random;
 
 /**
  * Created by odudak on 28.04.15.
@@ -16,11 +17,15 @@ public class EqualsBad {
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+//        та же хрень
+//        return super.equals(obj);
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+//        фигово
+//        return super.hashCode();
+        return new Random().nextInt();
     }
 }
