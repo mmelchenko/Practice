@@ -17,6 +17,8 @@ public class EqualsBadTest {
     @Test
     public void testHashCode() throws Exception {
 //        где тест по хешу?
-        throw new RuntimeException(StringConstants.NOT_IMPLEMENTED_YET);
+        EqualsBad e1 = new EqualsBad(1, "s");
+        EqualsBad e2 = new EqualsBad(1, "s");
+        assertNotEquals(e1.hashCode(), e2.hashCode());
     }
 }
