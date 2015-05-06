@@ -22,6 +22,7 @@ public class MutableInt {
 
     @Override
     public boolean equals(Object o) {
+//        тут тоже починить эквалс
         if (this == o) return true;
         if (!(o instanceof MutableInt)) return false;
 

@@ -1,5 +1,6 @@
 package base.mutability;
 
+import constants.StringConstants;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -31,5 +32,25 @@ public class MutableStringTest {
         assertNotEquals(a.hashCode(), c.hashCode());
         assertNotEquals(b.hashCode(), d.hashCode());
         assertEquals(c.hashCode(), d.hashCode());
+    }
+
+    @Test
+    public void testGetS() throws Exception {
+        throw new RuntimeException(StringConstants.NOT_IMPLEMENTED_YET);
+    }
+
+    @Test
+    public void testSetS() throws Exception {
+        throw new RuntimeException(StringConstants.NOT_IMPLEMENTED_YET);
+    }
+
+    @Test
+    public void testAdd() throws Exception {
+        throw new RuntimeException(StringConstants.NOT_IMPLEMENTED_YET);
+    }
+
+    @Test
+    public void testDeleteSubstring() throws Exception {
+        throw new RuntimeException(StringConstants.NOT_IMPLEMENTED_YET);
     }
 }
