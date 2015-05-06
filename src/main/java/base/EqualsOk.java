@@ -31,13 +31,17 @@ public class EqualsOk {
         if (this == obj) return true;
 //        тут не очень хорошо, я покажу в тестах почему (кроме этого инстансоф очень дорогая операция так как она идёт по всей иерархии классов
 //        которая может быть оооочень длинной )))
-        if (!(obj instanceof EqualsOk)) return false;
-
-        EqualsOk equalsOk = (EqualsOk) obj;
-
-        if (i != equalsOk.i) return false;
-        return s.equals(equalsOk.s);
-
+        if (EqualsOk.class.equals(obj.getClass())) {
+            if (getI() != ((EqualsOk) obj).getI()) {
+                return false;
+            }
+            if (!getS().equals(((EqualsOk) obj).getS())) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
     }
 
     @Override
