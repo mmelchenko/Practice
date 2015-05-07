@@ -5,4 +5,5 @@ package constants;
  */
 public class StringConstants {
     public static final String NOT_IMPLEMENTED_YET = "Not implemented yet";
+    public static final String CONCAT_STRING = "something to concat";
 }

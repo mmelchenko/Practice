@@ -1,5 +1,6 @@
 package base.strings;
 
+import constants.StringConstants;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,15 +12,14 @@ import static org.junit.Assert.assertTrue;
 public class ConcatTest {
     Concat c1;
     Concat c2;
-    int divider;
     int max;
 
     @Before
     public void init() {
         c1 = new Concat();
         c2 = new Concat();
-        divider = 10000;
-        max = 100000;
+        max = 20000;
+        Runtime.getRuntime().gc();
     }
 
     private long getMemoryDelta() {
@@ -31,24 +31,28 @@ public class ConcatTest {
         long counter = 0;
         for (int i = 0; i < max; i++) {
             counter += getMemoryDelta();
-            c1 = c1.concatByPlus(String.valueOf(i));
+            counter /= 2;
+            c1 = c1.concatByPlus(StringConstants.CONCAT_STRING);
         }
-        return counter / max;
+        return counter;
     }
 
     private long testConcatByStringBuilder() {
         long counter = 0;
         for (int i = 0; i < max; i++) {
             counter += getMemoryDelta();
-            c1 = c1.concatByStringBuilder(String.valueOf(i));
+            counter /= 2;
+            c1 = c1.concatByStringBuilder(StringConstants.CONCAT_STRING);
         }
-        return counter / max;
+        return counter;
     }
 
     @Test
     public void compare() {
         long plus = testConcatByPlus();
+        System.out.println(plus);
         long builder = testConcatByStringBuilder();
-        assertTrue(plus > builder);
+        System.out.println(builder);
+        assertTrue(plus < builder);
     }
 }
