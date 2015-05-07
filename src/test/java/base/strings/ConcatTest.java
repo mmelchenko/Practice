@@ -49,10 +49,12 @@ public class ConcatTest {
     @Test
     public void compare() {
         System.out.println("start: " + mem);
-        long plus = testConcatByPlus();
-        System.out.println("plus: " + plus);
+        System.out.println("free: " + Runtime.getRuntime().freeMemory());
         long builder = testConcatByStringBuilder();
         System.out.println("builder: " + builder);
+        System.out.println("free: " + Runtime.getRuntime().freeMemory());
+        long plus = testConcatByPlus();
+        System.out.println("plus: " + plus);
         assertTrue(plus > builder);
     }
 }
