@@ -13,46 +13,46 @@ public class ConcatTest {
     Concat c1;
     Concat c2;
     int max;
+    long mem;
 
     @Before
     public void init() {
         c1 = new Concat();
         c2 = new Concat();
         max = 20000;
-        Runtime.getRuntime().gc();
+        mem = Runtime.getRuntime().totalMemory();
     }
 
-    private long getMemoryDelta() {
-        return Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+    private long getMemoryDelta(long start, long stop) {
+        return stop - start;
     }
 
 
     private long testConcatByPlus() {
-        long counter = 0;
+        long start = Runtime.getRuntime().totalMemory();
         for (int i = 0; i < max; i++) {
-            counter += getMemoryDelta();
-            counter /= 2;
             c1 = c1.concatByPlus(StringConstants.CONCAT_STRING);
         }
-        return counter;
+        long stop = Runtime.getRuntime().totalMemory();
+        return getMemoryDelta(start, stop);
     }
 
     private long testConcatByStringBuilder() {
-        long counter = 0;
+        long start = Runtime.getRuntime().totalMemory();
         for (int i = 0; i < max; i++) {
-            counter += getMemoryDelta();
-            counter /= 2;
             c1 = c1.concatByStringBuilder(StringConstants.CONCAT_STRING);
         }
-        return counter;
+        long stop = Runtime.getRuntime().totalMemory();
+        return getMemoryDelta(start, stop);
     }
 
     @Test
     public void compare() {
+        System.out.println("start: " + mem);
         long plus = testConcatByPlus();
-        System.out.println(plus);
+        System.out.println("plus: " + plus);
         long builder = testConcatByStringBuilder();
-        System.out.println(builder);
-        assertTrue(plus < builder);
+        System.out.println("builder: " + builder);
+        assertTrue(plus > builder);
     }
 }
