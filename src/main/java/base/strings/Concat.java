@@ -7,29 +7,21 @@ package base.strings;
 public class Concat {
 
     private String string;
-    private long freeMemory = Runtime.getRuntime().freeMemory();
+    private StringBuilder stringBuilder;
 
-    public Concat(String string) {
-        this.string = string;
+    public Concat() {
+        this.stringBuilder = new StringBuilder();
     }
 
-    public String getString() {
-        return string;
+    public Concat concatByPlus(String s) {
+        this.string += s;
+        return this;
     }
 
-    public void memoryExpense(int iterations) {
-
-        long endFreeMemory = 0;
-
-        for (int i = 0; i < iterations; i++) {
-            string += i;
-            System.out.println(Runtime.getRuntime().freeMemory());
-            if (i + 1 == iterations) {
-                endFreeMemory = Runtime.getRuntime().freeMemory();
-                System.out.println(endFreeMemory);
-            }
-        }
-
-        System.out.println("Concatenation of " + iterations + " strings takes memory: " + (freeMemory - endFreeMemory));
+    public Concat concatByStringBuilder(String s) {
+        this.stringBuilder.append(s);
+        return this;
     }
+
+
 }
