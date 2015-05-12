@@ -6,7 +6,7 @@ package base.strings;
  */
 // Ответ: StringBuffer синхронизирован, а StringBuilder - нет.
 
-public class Buffer {
+public class Buffer implements Runnable {
 
     private StringBuffer stringBuffer = new StringBuffer();
 
@@ -23,7 +23,26 @@ public class Buffer {
     }
 
     @Override
+    public void run() {
+        for (int i = 0; i < 20; i++) {
+            stringBuffer.append("If you can read this,").append("that mean,that ").append("StringBuffer is threadsafe. ");
+            randomWait();
+            System.out.println(stringBuffer);
+            this.setStringBuffer(new StringBuffer(""));
+        }
+    }
+
+    public void randomWait() {
+        try {
+            Thread.currentThread().sleep((long) (3000 * Math.random()));
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted!");
+        }
+    }
+
+    @Override
     public boolean equals(Object o) {
+        if (o == null) return false;
         if (this == o) return true;
         if (!(o instanceof Buffer)) return false;
 
