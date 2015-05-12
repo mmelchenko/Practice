@@ -1,7 +1,9 @@
 package base.strings;
 
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Created by dtv on 05.05.2015.
@@ -19,28 +21,51 @@ public class BuilderTest {
         assertEquals(builder.getStringBuilder().charAt(4), 'f');
     }
 
+    static class SBThread extends Thread {
+        private StringBuilder sb;
+        private int prefix;
+        private int count;
+
+        SBThread(StringBuilder sb, int prefix, int count) {
+            this.sb = sb;
+            this.prefix = prefix;
+            this.count = count;
+        }
+
+        @Override
+        public void run() {
+            for (int j = 0; j < count; j++) {
+                sb.append(prefix);
+            }
+
+        }
+    }
+
     @Test
-    public void testMultithreadingBuilder() {
-        Builder builder = new Builder("Builder: ");
-        Thread thread1 = new Thread(builder);
-        Thread thread2 = new Thread(builder);
+    public void testMultithreadingBuilder() throws InterruptedException {
+        int count = 10000;
+        int acc = 0;
+        int numRun = 100;
+        for (int i = 0; i < numRun; i++) {
+            acc += collect(count);
+        }
+        System.out.println(acc);
+        assertNotEquals(acc / numRun, count * 3);
+    }
 
-        thread1.start();
-        thread2.start();
 
-        boolean thread1IsAlive = true;
-        boolean thread2IsAlive = true;
-
-        do {
-            if (thread1IsAlive && !thread1.isAlive()) {
-                thread1IsAlive = false;
-                System.out.println("Thread 1 is dead.");
-            }
-
-            if (thread2IsAlive && !thread2.isAlive()) {
-                thread2IsAlive = false;
-                System.out.println("Thread 2 is dead.");
-            }
-        } while (thread1IsAlive || thread2IsAlive);
+    // всегда должно быть n * 3
+    private int collect(int count) throws InterruptedException {
+        StringBuilder sb = new StringBuilder();
+        SBThread t1 = new SBThread(sb, 1, count);
+        SBThread t2 = new SBThread(sb, 2, count);
+        SBThread t3 = new SBThread(sb, 3, count);
+        t1.start();
+        t3.start();
+        t2.start();
+        t1.join();
+        t2.join();
+        t3.join();
+        return sb.length();
     }
 }
