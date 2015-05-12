@@ -54,7 +54,7 @@ public class BuilderTest {
     }
 
 
-    // всегда должно быть n * 3
+    // must be equal n * 3 every time
     private int collect(int count) throws InterruptedException {
         StringBuilder sb = new StringBuilder();
         SBThread t1 = new SBThread(sb, 1, count);
