@@ -21,51 +21,30 @@ public class BuilderTest {
         assertEquals(builder.getStringBuilder().charAt(4), 'f');
     }
 
-    static class SBThread extends Thread {
-        private StringBuilder sb;
-        private int prefix;
-        private int count;
-
-        SBThread(StringBuilder sb, int prefix, int count) {
-            this.sb = sb;
-            this.prefix = prefix;
-            this.count = count;
-        }
-
-        @Override
-        public void run() {
-            for (int j = 0; j < count; j++) {
-                sb.append(prefix);
-            }
-
-        }
-    }
-
     @Test
     public void testMultithreadingBuilder() throws InterruptedException {
-        int count = 10000;
-        int acc = 0;
-        int numRun = 100;
-        for (int i = 0; i < numRun; i++) {
-            acc += collect(count);
-        }
-        System.out.println(acc);
-        assertNotEquals(acc / numRun, count * 3);
-    }
+        Builder builder = new Builder("", 1000);
 
+        Thread thread1 = new Thread(builder);
+        Thread thread2 = new Thread(builder);
+        Thread thread3 = new Thread(builder);
+        Thread thread4 = new Thread(builder);
+        Thread thread5 = new Thread(builder);
 
-    // must be equal n * 3 every time
-    private int collect(int count) throws InterruptedException {
-        StringBuilder sb = new StringBuilder();
-        SBThread t1 = new SBThread(sb, 1, count);
-        SBThread t2 = new SBThread(sb, 2, count);
-        SBThread t3 = new SBThread(sb, 3, count);
-        t1.start();
-        t3.start();
-        t2.start();
-        t1.join();
-        t2.join();
-        t3.join();
-        return sb.length();
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        thread4.start();
+        thread5.start();
+
+        thread1.join();
+        thread2.join();
+        thread3.join();
+        thread4.join();
+        thread5.join();
+
+        String[] iterations = builder.getStringBuilder().toString().split(";");
+        System.out.println(builder.getStringBuilder().toString());
+        assertNotEquals(iterations.length, builder.getIterations());
     }
 }

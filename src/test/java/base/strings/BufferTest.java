@@ -3,6 +3,7 @@ package base.strings;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Created by dtv on 05.05.2015.
@@ -31,26 +32,33 @@ public class BufferTest {
 
     @Test
     public void testMultithreadingBuffer() {
-        Buffer buffer = new Buffer("Buffer: ");
+        Buffer buffer = new Buffer("", 1000);
+
         Thread thread1 = new Thread(buffer);
         Thread thread2 = new Thread(buffer);
+        Thread thread3 = new Thread(buffer);
+        Thread thread4 = new Thread(buffer);
+        Thread thread5 = new Thread(buffer);
 
         thread1.start();
         thread2.start();
+        thread3.start();
+        thread4.start();
+        thread5.start();
 
-        boolean thread1IsAlive = true;
-        boolean thread2IsAlive = true;
+        try {
+            thread1.join();
+            thread2.join();
+            thread3.join();
+            thread4.join();
+            thread5.join();
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted!");
+        }
 
-        do {
-            if (thread1IsAlive && !thread1.isAlive()) {
-                thread1IsAlive = false;
-                System.out.println("Thread 1 is dead.");
-            }
 
-            if (thread2IsAlive && !thread2.isAlive()) {
-                thread2IsAlive = false;
-                System.out.println("Thread 2 is dead.");
-            }
-        } while (thread1IsAlive || thread2IsAlive);
+        String[] iterations = buffer.getStringBuffer().toString().split(";");
+        System.out.println(buffer.getStringBuffer().toString());
+        assertNotEquals(iterations.length, buffer.getIterations());
     }
 }

@@ -7,6 +7,7 @@ package base.strings;
 // Ответ: StringBuffer синхронизирован, а StringBuilder - нет.
 
 public class Buffer implements Runnable {
+    private int iterations;
 
     private StringBuffer stringBuffer = new StringBuffer();
 
@@ -14,29 +15,26 @@ public class Buffer implements Runnable {
         this.stringBuffer = new StringBuffer(s);
     }
 
+    public Buffer(String string, int iterations) {
+
+        this.stringBuffer = new StringBuffer(string);
+        this.iterations = iterations;
+    }
+
+    public void setStringBuffer(StringBuffer stringBuffer) { this.stringBuffer = stringBuffer; }
+
     public StringBuffer getStringBuffer() {
         return stringBuffer;
     }
 
-    public void setStringBuffer(StringBuffer stringBuffer) {
-        this.stringBuffer = stringBuffer;
-    }
+    public int getIterations() { return iterations; }
 
     @Override
     public void run() {
         for (int i = 0; i < 20; i++) {
-            stringBuffer.append("If you can read this,").append("that mean,that ").append("StringBuffer is threadsafe. ");
-            randomWait();
-            System.out.println(stringBuffer);
-            this.setStringBuffer(new StringBuffer(""));
-        }
-    }
-
-    public void randomWait() {
-        try {
-            Thread.currentThread().sleep((long) (3000 * Math.random()));
-        } catch (InterruptedException e) {
-            System.out.println("Interrupted!");
+            stringBuffer.append("i = ");
+            stringBuffer.append(i);
+            stringBuffer.append(";" + System.getProperty("line.separator").toString());
         }
     }
 

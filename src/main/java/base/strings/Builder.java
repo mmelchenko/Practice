@@ -12,36 +12,30 @@ package base.strings;
     вобщем переделай класс под что-то более кошерное и в тестах его уже помучай
 */
 public class Builder implements Runnable {
+    private int iterations;
 
     private StringBuilder stringBuilder = new StringBuilder();
 
-    public Builder(String string) {
+    public Builder(String string) { this.stringBuilder = new StringBuilder(string); }
+
+    public Builder(String string, int iterations) {
+
         this.stringBuilder = new StringBuilder(string);
+        this.iterations = iterations;
     }
 
     public StringBuilder getStringBuilder() {
         return stringBuilder;
     }
 
-    public void setStringBuilder(StringBuilder stringBuilder) {
-        this.stringBuilder = stringBuilder;
-    }
+    public int getIterations() { return iterations; }
 
     @Override
     public void run() {
-        for (int i = 0; i < 20; i++) {
-            stringBuilder.append("If you can read this, ").append("that mean, that ").append(" StringBuilder is threadsafe.");
-            randomWait();
-            System.out.println(stringBuilder);
-            this.setStringBuilder(new StringBuilder(""));
-        }
-    }
-
-    public void randomWait() {
-        try {
-            Thread.currentThread().sleep((long)(3000*Math.random()));
-        } catch (InterruptedException e) {
-            System.out.println("Interrupted!");
+        for (int i = 0; i < iterations; i++) {
+            stringBuilder.append("i = ");
+            stringBuilder.append(i);
+            stringBuilder.append(";" + System.getProperty("line.separator").toString());
         }
     }
 
