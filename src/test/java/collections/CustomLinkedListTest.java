@@ -19,18 +19,27 @@ public class CustomLinkedListTest {
 //            по идее это место надо будет изменить когда ты этот функционал всунешь в методы которые надо имплементировать
             bak.setPrev(cl);
         }
+
         assertEquals(tst, cl.toString());
 
     }
 
     @Test
     public void testAppendToEnd() throws Exception {
-// сделать
+        CustomLinkedList<Integer> cl = new CustomLinkedList<Integer>();
+        for (int i = 1; i < 12; i++) {
+            cl.appendToEnd(i);
+        }
+        assertEquals(tst, cl.toString());
     }
 
     @Test
     public void testPushOnTop() throws Exception {
-// сделать
+        CustomLinkedList<Integer> cl = new CustomLinkedList<Integer>();
+        for (int i = 11; i > 0; i--) {
+            cl.pushOnTop(i);
+        }
+        assertEquals(tst, cl.toString());
     }
 
 }
