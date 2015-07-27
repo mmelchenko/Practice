@@ -1,9 +1,7 @@
 package io.serialisation;
 
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,10 +44,12 @@ public class ExternalizeMe implements Externalizable {
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
 //      сделать свою сейвилку в файл
+        out.writeObject(this.getLs());
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 //      сделать свою читалку в обьект
+        this.setLs((List<String>) in.readObject());
     }
 }
