@@ -11,7 +11,6 @@ import java.util.List;
 public class ExternalizeMeTest {
 
     static List<String> list = new ArrayList<String>();
-    static String expectedResult = "[A, B, C, D, E]";
     static ExternalizeMe me;
     File file = new File("ext.out");
 
@@ -29,20 +28,20 @@ public class ExternalizeMeTest {
     public void testWriteExternal() throws Exception {
         FileOutputStream fos = new FileOutputStream(file);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(me);
+        me.writeExternal(oos);
         oos.flush();
-        oos.close();
+        fos.close();
     }
 
     @Test
     public void testReadExternal() throws Exception {
-        ExternalizeMe externalizeMe;
+        ExternalizeMe externalizeMe = new ExternalizeMe(list);
         FileInputStream fis = new FileInputStream(file);
         ObjectInputStream ois = new ObjectInputStream(fis);
-        externalizeMe = (ExternalizeMe) ois.readObject();
+        externalizeMe.readExternal(ois);
         ois.close();
 
-        assertEquals(externalizeMe, expectedResult);
+        assertEquals(externalizeMe, me);
     }
 
 }

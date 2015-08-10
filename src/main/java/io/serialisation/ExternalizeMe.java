@@ -52,4 +52,18 @@ public class ExternalizeMe implements Externalizable {
 //      сделать свою читалку в обьект
         this.setLs((List<String>) in.readObject());
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("[");
+        for (int i = 0; i < ls.size(); i++) {
+            if (i + 1 == ls.size()) {
+                result.append(ls.get(i) + "]");
+                return String.valueOf(result);
+            }
+            result.append(ls.get(i) + ", ");
+        }
+        return String.valueOf(result);
+    }
 }
