@@ -56,7 +56,6 @@ public class CustomLinkedList<T> {
         CustomLinkedList<T> data = new CustomLinkedList<T>();
         data.setData(element);
         CustomLinkedList<T> current = this;
-        System.out.println("Current = " + current);
 
         if (current.size() == 0) {
             linkFirst(element);
@@ -64,29 +63,25 @@ public class CustomLinkedList<T> {
         }
 
         while (current.getPrev() != null) {
-            System.out.println("Prev -" + current.getPrev() + "-");
             current = current.getPrev();
-            System.out.println("Current now = " + current);
         }
 
         current.setPrev(data);
         data.setNext(current);
         size++;
-        System.out.println("data! = " + data);
-        System.out.println("this.next now = " + this.next);
-        System.out.println("this.prev now = " + this.prev);
     }
 
     @Override
     public String toString() {
         if (this.next == null && prev != null) {
-            return this.prev.toString() + ", " + data + " ]";
-        } else
-        if (this.next != null && prev == null)
-            return "[ " + data + ", " + this.next.toString();
+            return data + " ]";
+        }
         else if (this.next != null && this.prev != null) {
             return data + ", " + this.next.toString();
-        } else {
+        }
+        else if (this.next != null && prev == null)
+            return "[ " + data + ", " + this.next.toString();
+        else {
             return data + " ]";
         }
     }
@@ -96,12 +91,17 @@ public class CustomLinkedList<T> {
         size++;
     }
 
-
-    public static void main(String[] args) {
-        CustomLinkedList<Integer> cl = new CustomLinkedList<Integer>();
-        for (int i = 1; i < 12; i++) {
-            cl.pushOnTop(i);
+    public String toStringForPushOnTop() {
+        if (this.next == null && prev != null) {
+            return this.prev.toStringForPushOnTop() + data + " ]";
         }
-        System.out.println("cltoend: " + cl);
+        else if (this.next != null && this.prev != null) {
+            return this.prev.toStringForPushOnTop() + data + ", ";
+        }
+        else if (this.next != null && prev == null)
+            return  "[ " + data + ", ";
+        else {
+            return "[]";
+        }
     }
 }

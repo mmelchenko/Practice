@@ -39,7 +39,8 @@ public class CustomLinkedListTest {
         for (int i = 11; i > 0; i--) {
             cl.pushOnTop(i);
         }
-        assertEquals(tst, cl.toString());
+
+        assertEquals(tst, cl.toStringForPushOnTop());
     }
 
 }
