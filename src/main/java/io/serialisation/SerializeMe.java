@@ -1,7 +1,6 @@
 package io.serialisation;
 
-import java.io.OutputStream;
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * Created by odudak on 08.05.15.
@@ -9,10 +8,13 @@ import java.io.Serializable;
 public class SerializeMe implements Serializable {
 
 //    что надо сделать чтобы сериализовать обьект ?
+//    1. Объект должен реализовывать интерфейс java.io.Serializable (также объкт может унаследовать эту реализацию)
+//    2. Сохраняемый объект должен пометить все свои несериализуемые поля как transient.
 //    что будеть в os после десериализации ?
+//    java.io.StreamCorruptedException: invalid stream header
 
 
-    private OutputStream os;
+    transient private OutputStream os;
     private String s;
 
 
