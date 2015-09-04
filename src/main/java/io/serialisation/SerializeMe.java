@@ -11,8 +11,7 @@ public class SerializeMe implements Serializable {
 //    1. Объект должен реализовывать интерфейс java.io.Serializable (также объкт может унаследовать эту реализацию)
 //    2. Сохраняемый объект должен пометить все свои несериализуемые поля как transient.
 //    что будеть в os после десериализации ?
-//    java.io.StreamCorruptedException: invalid stream header
-
+//    java.io.NotSerializableException: java.io.ObjectOutputStream
 
     transient private OutputStream os;
     private String s;

@@ -10,27 +10,27 @@ public class ChildExTest {
 
     @Test(expected = ParentEx.class)
     public void ex1() throws ParentEx {
-        new AE().a();
+        new AE().a();                   // throw ParentEx and getting ParentEx
     }
 
     @Test(expected = ParentEx.class)
     public void ex11() throws ParentEx {
-        new AD().a();
-    }
+        new AD().a();                   // throw ChildEx, but that's OK.
+    }                                   // Because ChildEx extends ParentEx.
 
     @Test(expected = ChildEx.class)
     public void ex2() throws ChildEx {
-        new AD().a();
+        new AD().a();                   // throw ChildEx and getting ChildEx
     }
 
     @Test(expected = ChildEx.class)
     public void ex22() throws ParentEx {
-        new AD().a();
-    }
+        new AD().a();                   // throw ChildEx, but that's OK.
+    }                                   // Because ChildEx extends ParentEx.
 
     @Test(expected = Error.class)
     public void ex3() throws ParentEx {
-        new AC().a();
+        new AC().a();                   // throw Error and getting Error
     }
 
     static class AE {
