@@ -44,7 +44,7 @@ public class ExternalizeMe implements Externalizable {
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
 //      сделать свою сейвилку в файл
-        out.writeObject(this.getLs());
+        out.writeObject(ls);
     }
 
     @Override

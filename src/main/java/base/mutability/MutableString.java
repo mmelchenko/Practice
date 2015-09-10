@@ -22,7 +22,7 @@ public class MutableString {
 
     public void setS(String s) {
 //        он меняется так как нам надо
-        this.s.delete(0, s.length());
+        this.s.delete(0, this.s.length());
         this.s.append(s);
     }
 
@@ -33,9 +33,13 @@ public class MutableString {
 
     //    TODO сделать удаляху и дописать юнит под неё
     public boolean deleteSubstring(String s) {
-        throw new RuntimeException(StringConstants.NOT_IMPLEMENTED_YET);
+        if (this.getS().contains(s)) {
+            int startIndex = this.getS().indexOf(s);
+            String result = this.s.delete(startIndex, startIndex + s.length()).toString();
+            this.setS(result);
+        }
+        return false;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -44,12 +48,7 @@ public class MutableString {
 
         MutableString that = (MutableString) o;
 
-        return !(s != null ? !s.equals(that.s) : that.s != null);
+        return this.getS().equals(that.getS());
 
-    }
-
-    @Override
-    public int hashCode() {
-        return s != null ? s.hashCode() : 0;
     }
 }

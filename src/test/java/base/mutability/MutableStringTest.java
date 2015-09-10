@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by dtv on 04.05.2015.
@@ -36,21 +37,28 @@ public class MutableStringTest {
 
     @Test
     public void testGetS() throws Exception {
-        throw new RuntimeException(StringConstants.NOT_IMPLEMENTED_YET);
+        MutableString mutableString = new MutableString("Mutable string test");
+        assertEquals(mutableString.getS(), "Mutable string test");
     }
 
     @Test
     public void testSetS() throws Exception {
-        throw new RuntimeException(StringConstants.NOT_IMPLEMENTED_YET);
+        MutableString mutableString = new MutableString("Mutable string test");
+        mutableString.setS("Changed!");
+        assertEquals(mutableString.getS(), "Changed!");
     }
 
     @Test
     public void testAdd() throws Exception {
-        throw new RuntimeException(StringConstants.NOT_IMPLEMENTED_YET);
+        MutableString mutableString = new MutableString("Mutable string test");
+        mutableString.add("!!!");
+        assertEquals(mutableString.getS(), "Mutable string test!!!");
     }
 
     @Test
     public void testDeleteSubstring() throws Exception {
-        throw new RuntimeException(StringConstants.NOT_IMPLEMENTED_YET);
+        MutableString mutableString = new MutableString("Mutable string test");
+        mutableString.deleteSubstring("ing");
+        assertEquals(mutableString.getS(), "Mutable str test");
     }
 }
