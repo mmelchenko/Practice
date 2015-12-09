@@ -13,6 +13,7 @@ public class JDBC {
     private Properties properties;
     private Connection connection;
     private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
 
     public JDBC(String jdbcDriver, String database) {
         this.jdbcDriver = jdbcDriver;
@@ -83,17 +84,20 @@ public class JDBC {
         String query = "SELECT * FROM LIBRARY";
         try {
             preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             int count = 1;
             while (resultSet.next()) {
                 String bookName = resultSet.getString("BOOK_NAME");
                 String releaseYear = resultSet.getString("RELEASE_YEAR");
                 String author = resultSet.getString("AUTHOR");
                 System.out.println(count + ". " + bookName + " / " + releaseYear + " / " + author);
+                count++;
             }
         } catch (SQLException e) {
             System.out.println("Failed to print all books.");
             e.printStackTrace();
+        } finally {
+            this.close();
         }
     }
 
@@ -196,6 +200,16 @@ public class JDBC {
             System.out.println("IllegalAccessException!");
             System.out.println("Unable to load a driver.");
             e.printStackTrace();
+        }
+    }
+
+    private void close() {
+        if(connection != null) {
+            try {
+                DriverManager.getConnection(database + ";create = false; shutdown = true");
+            } catch (SQLException e) {
+                System.out.println("myDB connection is closed.");
+            }
         }
     }
 }
